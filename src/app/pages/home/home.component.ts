@@ -28,7 +28,8 @@ export class HomeComponent {
     //1 - Analizar el valor,
     //2 - Llamar al servicio
 
-    //Hemos recibido un cambio en la ruta
+    //Hemos recibido un cambio en la ruta  
+    //state.loading=true;
     this.$state.update(state => (
       { ...state, loading: true, type: type }
     )
@@ -45,13 +46,17 @@ export class HomeComponent {
 
     resquest.subscribe(
       (data: any) => {
+        /**
+         * state.loading=false;
+         * state.error=false;
+         * state.data=data
+         */
         this.$state.update(state => (
           { ...state, loading: false, error: false, 
             data: data.map((m: any) => (
               type == 'category' ? ({ name: m.strCategory }) : ({ name: m.strArea }))) 
             }
         ))
-        console.log(data)
       },
       (err) => {
         console.log(err)
